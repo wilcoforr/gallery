@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gallery - Flex Panels  - by wilcoforr</title>
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <style>
+    html {
+      box-sizing: border-box;
+      background: #ffc600;
+      font-family: "helvetica neue";
+      font-size: 20px;
+      font-weight: 200;
+    }
+    
+    body {
+      margin: 0;
+    }
+    
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    .panels {
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .panel {
+      background: #6B0F9C;
+      box-shadow: inset 0 0 0 5px rgba(255,255,255,0.1);
+      color: white;
+      text-align: center;
+      align-items: center;
+      /* Safari transitionend event.propertyName === flex */
+      /* Chrome + FF transitionend event.propertyName === flex-grow */
+      transition:
+        font-size 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+        flex 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+        background 0.2s;
+      font-size: 20px;
+      background-size: cover;
+      background-position: center;
+      flex: 1;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel1 { background-image:url(https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Monet_-_Impression%2C_Sunrise.jpg/1280px-Monet_-_Impression%2C_Sunrise.jpg); }
+    .panel2 { background-image:url(https://upload.wikimedia.org/wikipedia/commons/4/44/Bouchot_-_Le_general_Bonaparte_au_Conseil_des_Cinq-Cents.jpg); }
+    .panel3 { background-image:url(https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Grandes_Armes_Imp%C3%A9riales_%281804-1815%292.svg/925px-Grandes_Armes_Imp%C3%A9riales_%281804-1815%292.svg.png); }
+    .panel4 { background-image:url(https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Bergtocht_van_S-charl_naar_Alp_Sesvenna._10-09-2019._%28d.j.b%29_25.jpg/1920px-Bergtocht_van_S-charl_naar_Alp_Sesvenna._10-09-2019._%28d.j.b%29_25.jpg); }
+    .panel5 { background-image:url(https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Hue_Vietnam_Citadel-of-Hu%E1%BA%BF-21.jpg/1920px-Hue_Vietnam_Citadel-of-Hu%E1%BA%BF-21.jpg); }
+
+    /* Flex Items */
+    .panel > * {
+      margin: 0;
+      width: 100%;
+      transition: transform 0.5s;
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* .panel > *:first-child { transform: translateY(-100%); }
+    .panel.open-active > *:first-child { transform: translateY(0); } */
+    .panel > *:last-child { transform: translateY(100%); }
+    .panel.open-active > *:last-child { transform: translateY(-30%); }
+
+    .panel p {
+      text-transform: uppercase;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+      font-size: 2em;
+    }
+    
+    .panel p:nth-child(2) {
+      font-size: 4em;
+    }
+
+    .panel.open {
+      flex: 5;
+      font-size: 40px;
+    }
+    
+    @media only screen and (max-width: 600px) {
+      .panel p {
+        font-size: 1em;
+      }
+    }
+  </style>
+
+
+  <div class="panels">
+    <div class="panel panel1">
+      <p>Monet</p>
+    </div>
+    <div class="panel panel2">
+      <p>Napoleon</p>
+    </div>
+    <div class="panel panel3">
+      <p>Coat of Arms</p>
+    </div>
+    <div class="panel panel4">
+      <p>Nature</p>
+    </div>
+    <div class="panel panel5">
+      <p>Chillin'</p>
+    </div>
+  </div>
+
+  <script>
+    const panels = document.querySelectorAll(".panel");
+
+    function toggleOpen() {
+      this.classList.toggle("open");
+    }
+
+    function toggleActive(e) {
+      if (e.propertyName.includes("flex")) {
+        this.classList.toggle("open-active");
+      }
+    }
+
+    panels.forEach(panel => panel.addEventListener("click", toggleOpen));
+    panels.forEach(panel => panel.addEventListener("transitionend", toggleActive));
+  </script>
+
+</body>
+</html>
